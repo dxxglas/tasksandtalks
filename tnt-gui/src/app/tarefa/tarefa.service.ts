@@ -21,10 +21,10 @@ export class TarefaService {
     }
 
     atualizarMensagens(projetoID: string, tarefaID: string): Observable<Tarefa> {
-        return this.http.put<any>(this.tntURL + "/tarefas" + `/${projetoID}/${tarefaID}/mensagens`, JSON.stringify({ projetoID, tarefaID }), { headers: this.headers })
+        return this.http.put<any>(this.tntURL + "/tarefa/mensagens", JSON.stringify({ projetoID, tarefaID }), { headers: this.headers })
             .pipe(
                 retry(2),
-                map(res => { if (res.success) { return res.result; } else { return null; } })
+                map(res => { if (res.success) { return res; } else { return null; } })
             );
     }
 }

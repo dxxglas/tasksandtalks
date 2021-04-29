@@ -87,12 +87,12 @@ tntserver.get('/tarefas/:projeto/:tarefa', function (req: express.Request, res: 
   res.send(repositorioDeProjetos.getTarefa(projeto, tarefa));
 })
 
-tntserver.put('/tarefas/:projeto/:tarefa/mensagens', function (req: express.Request, res: express.Response) {
-  let projeto: string = req.params.projeto;
-  let tarefa: string = req.params.tarefa;
+tntserver.put('/tarefa/mensagens', function (req: express.Request, res: express.Response) {
+  let projeto: string = req.body.projetoID;
+  let tarefa: string = req.body.tarefaID;
   let result: Tarefa = repositorioDeProjetos.atualizarMensagens(projeto, tarefa);
   if (result) {
-    res.send({ "success": "A tarefa foi atualizado com sucesso" , result});
+    res.send({ "success": "A tarefa foi atualizado com sucesso" });
   } else {
     res.send({ "failure": "A tarefa não pode ser atualizado" });
   }

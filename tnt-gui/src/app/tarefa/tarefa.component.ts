@@ -34,19 +34,20 @@ export class TarefaComponent implements OnInit {
   }
 
   atualizarMensagens(): void {
-    this.projetoID = this.route.snapshot.paramMap.get('projetoID');
-    this.tarefaID = this.route.snapshot.paramMap.get('tarefaID');
-
     this.tarefaService.atualizarMensagens(this.projetoID, this.tarefaID)
       .subscribe(
-        t => {
-            if (t) {
-              console.log(this.tarefa)
-              this.tarefa.contextos = t.contextos;
-              console.log(t)
-            } else {
-                alert('Tarefa não adicionada');
-            }
+        res => {
+          if (res) {
+            this.tarefaService.getTarefa(this.projetoID, this.tarefaID)
+              .subscribe(
+                t => {
+                  this.tarefa = t;
+                },
+                msg => { alert(msg.message); }
+              );
+          } else {
+            alert('Tarefa não adicionada');
+          }
         },
         msg => { alert(msg.message); }
       );
